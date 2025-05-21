@@ -1,0 +1,5 @@
+main
+*.aarch64.elf
+*.dbg
+*.dSYM
+*.x86_64.elf
