@@ -1,11 +1,13 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-int main() {
-  FILE *file = fopen("test.txt", "r");
+char *get_file_content(char *filename) {
+  FILE *file = fopen(filename, "r");
 
   if (file == NULL) {
-    return 1;
+    // TODO: Handle error
+    return "ERROR";
   }
 
   fseek(file, 0, SEEK_END);
@@ -13,14 +15,21 @@ int main() {
   rewind(file);
 
   char buffer[size + 1];
-  char content[size + 1];
+  char *content = malloc(size + 1);
 
   while (fgets(buffer, size + 1, file) != NULL) {
     strcat(content, buffer);
   }
 
-  printf("%s\n", content);
-
   fclose(file);
+
+  return content;
+}
+
+int main() {
+  char *content = get_file_content("site/test.txt");
+
+  printf("%s", content);
+
   return 0;
 }
